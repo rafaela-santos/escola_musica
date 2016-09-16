@@ -53,7 +53,7 @@
 		<i class="glyphicon glyphicon-backward"></i>
 	</a>
 
-	<!-- Button trigger modal -->
+
 	<?php
 		if ($erro == 1) {
 	?>
