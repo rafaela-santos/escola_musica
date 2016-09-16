@@ -3,7 +3,6 @@
 
 	$erro = 0;
 	$sucesso = 0;
-//testeee
 	$nome = '';
 	$idade = '';
 	$email = '';
