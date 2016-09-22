@@ -12,6 +12,7 @@ echo "Registro excluído com sucesso!" or die ("não é possivel deletar");
 $sql = mysql_query("DELETE FROM alunos WHERE id_aluno = '".$_POST['id']."'");
 $handle = mysql_query($sql);
 echo "Registro excluído com sucesso!" 
+//teste
 or die ("não é possivel deletar");
 ?>
 <input type="hidden" name="deletar" value="<?php echo $_POST['id'] ?>">
