@@ -11,7 +11,6 @@
 <body>
 
 	<h1>Listagem de alunos</h1>
-	<!-- Button trigger modal -->
 	<a href="./cadastro.php" type="button" class="btn btn-primary btn-lg btn-cadastrar">
 	  Cadastrar
 	</a>
