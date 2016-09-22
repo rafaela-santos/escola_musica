@@ -90,7 +90,6 @@
 		}
 		?>
                 <?php
-//teste3
                /* if (isset($_POST['id']) && $_POST['id'] != '') {
                         $id = $_GET['id'];
                         mysql_query("DELETE FROM alunos WHERE id_aluno='".$_POST['id']."'"); 
