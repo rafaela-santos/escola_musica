@@ -17,9 +17,9 @@
 
 	<?php
 		$sql = "SELECT * FROM alunos";
-		$handle = mysql_query($sql);
+		$handle = mysqli_query($sql);
 
-		if ($handle && mysql_num_rows($handle) > 0) {
+		if ($handle && mysqli_num_rows($handle) > 0) {
 	?>
 
 	<table class="table table-striped">
@@ -32,7 +32,7 @@
 			<th width="100px;">Ações</th>
 		</tr>
 		<?php
-			while($linha = mysql_fetch_array($handle)) {
+			while($linha = mysqli_fetch_array($handle)) {
 		?>
 		<tr>
 			<td><?php echo $linha['id_aluno'];?></td>

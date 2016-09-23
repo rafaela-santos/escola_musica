@@ -20,7 +20,7 @@
 				$sql = "UPDATE alunos SET nome = '".$_POST['nome']."', idade = '".$_POST['idade']."', email = '".$_POST['email']."', telefone = '".$_POST['telefone']."' WHERE id_aluno = '".$_POST['editar']."'";
 			}
 
-			$handle = mysql_query($sql);
+			$handle = mysqli_query($sql);
 
 			if ($handle) {
 				$sucesso = 1;
@@ -71,11 +71,11 @@
 
 		if (isset($_REQUEST['id']) && $_REQUEST['id'] != '') {
 			$sql = "SELECT * FROM alunos WHERE id_aluno = '".$_REQUEST['id']."'";
-			$handle = mysql_query($sql);
+			$handle = mysqli_query($sql);
 
-			if ($handle && mysql_num_rows($handle) > 0) {
+			if ($handle && mysqli_num_rows($handle) > 0) {
 
-				while($linha = mysql_fetch_array($handle)) {
+				while($linha = mysqli_fetch_array($handle)) {
 					$nome = $linha['nome'];
 					$idade = $linha['idade'];
 					$email = $linha['email'];
