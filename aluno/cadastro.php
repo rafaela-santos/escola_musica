@@ -71,7 +71,7 @@
 
 		if (isset($_REQUEST['id']) && $_REQUEST['id'] != '') {
 			$sql = "SELECT * FROM alunos WHERE id_aluno = '".$_REQUEST['id']."'";
-			$handle = mysqli_query($sql);
+			$handle = mysqli_query($conexao,$sql);
 
 			if ($handle && mysqli_num_rows($handle) > 0) {
 
