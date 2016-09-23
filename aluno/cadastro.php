@@ -20,7 +20,7 @@
 				$sql = "UPDATE alunos SET nome = '".$_POST['nome']."', idade = '".$_POST['idade']."', email = '".$_POST['email']."', telefone = '".$_POST['telefone']."' WHERE id_aluno = '".$_POST['editar']."'";
 			}
 
-			$handle = mysqli_query($sql);
+			$handle = mysqli_query($conexao,$sql);
 
 			if ($handle) {
 				$sucesso = 1;

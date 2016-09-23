@@ -17,7 +17,7 @@
 
 	<?php
 		$sql = "SELECT * FROM alunos";
-		$handle = mysqli_query($sql);
+		$handle = mysqli_query($conexao,$sql);
 
 		if ($handle && mysqli_num_rows($handle) > 0) {
 	?>
