@@ -17,6 +17,7 @@ else{
         
     </head>
     <body>
-      <br><br><input type="button" value="Voltar" onClick="index.php"</input> 
+      <br><br><a href="index.php">Voltar</a>
     </body>
 </html>
+<script src="../scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
