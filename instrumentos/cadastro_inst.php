@@ -10,6 +10,8 @@
 	if ($_POST) {
 		
 		//...Valida se está tudo preenchido
+            $imagem= array();
+            $mostra=$_FILES['foto_inst'];
             if ($_POST['tipo'] != '' && $_POST['nivel'] != '' && $_FILES['foto_inst'] != '') {
 			if (!isset($_POST['editar'])) {
 				$sql = "INSERT INTO instrumentos (tipo, nivel, foto_inst)
@@ -36,7 +38,7 @@
 	}
 ?>
 <?php
-  /*  if ($_POST) {
+/*  if ($_POST) {
 	
 	$nome = $_POST['tipo'];
 	$email = $_POST['nivel'];
@@ -90,6 +92,7 @@
 		}
 	}
 }*/
+
 ?>
 
 <!DOCTYPE html>
@@ -147,7 +150,7 @@
 			<input type="nivel" name="nivel" placeholder="Nivel" class="form-control" value="<?php if($nivel) echo $nivel; ?>">
 		</div>
                 <div class="form-group">
-                <input type="file" name="foto_inst" placeholder="Imagem" value="<?php if($foto_inst) echo $foto_inst; ?>">
+                <input type="file" name="foto_inst" placeholder="Imagem" value="<?php if($mostra) echo $mostra; ?>">
                 </div>
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
