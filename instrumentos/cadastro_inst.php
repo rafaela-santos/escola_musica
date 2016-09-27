@@ -10,13 +10,12 @@
 	if ($_POST) {
 		
 		//...Valida se está tudo preenchido
-		if ($_POST['tipo'] != '' && $_POST['nivel'] != '' && $_POST['foto_inst'] != '') {
-
+            if ($_POST['tipo'] != '' && $_POST['nivel'] != '' && $_FILES['foto_inst'] != '') {
 			if (!isset($_POST['editar'])) {
-				$sql = "INSERT INTO instrumentos (tipo, nivel)
-						VALUES ('".$_POST['tipo']."', '".$_POST['nivel']."', '".$_POST['foto_inst']."')";
+				$sql = "INSERT INTO instrumentos (tipo, nivel, foto_inst)
+                                    VALUES ('".$_POST['tipo']."', '".$_POST['nivel']."', '".$_FILES['foto_inst']."')";
 			}else{
-				$sql = "UPDATE instrumentos SET tipo = '".$_POST['tipo']."', nivel = '".$_POST['nivel']."', foto_inst = '".$_POST['foto_inst']."' WHERE id_instrumento = '".$_POST['editar']."'";
+				$sql = "UPDATE instrumentos SET tipo = '".$_POST['tipo']."', nivel = '".$_POST['nivel']."', foto_inst = '".$_FILES['foto_inst']."' WHERE id_instrumento = '".$_POST['editar']."'";
 			}
 
 			$handle = mysqli_query($conexao,$sql);
@@ -35,43 +34,75 @@
 		}
 
 	}
-
 ?>
 <?php
-if(!empty($foto_inst["foto_inst"])){
-    $largura=150;
-    $altura=180;
-    $tamanho=1000;
-}
-if(!preg_match("/^imagem/(pjpeg|jpeg|png|gif|bmp)$/", $foto_inst["type"])){
-    $error[1]= "isso não é uma imagem";
-    $dimensoes=  getimagesize($foto_inst["tpm_name"]);
-    if($dimensoes[0]> $largura){
-        $error[2]="a largura da imagem não deve ultrapassar".$largura. "pixels";
-    }
-    if($dimensoes[0]> $altura){
-        $error[3]="a altura da imagem não deve ultrapassar".$altura. "pixels";  
-    }
-        if($foto_inst("size")> $tamanho){
-        $error[4]="a imagem deve ter no máximo".$tamanho. "bytes";
-        }
-        if(count($error)==0){
-            preg_match("/.(pjpeg|jpeg|png|gif|bmp)$/i", $foto_inst["fotoinst"], $ext);
-        }
-    
-}
+  /*  if ($_POST) {
+	
+	$nome = $_POST['tipo'];
+	$email = $_POST['nivel'];
+	$foto_inst = $_FILES["foto_inst"];
+	
+	if (!empty($foto["tipo"])) {
+		
+		$largura = 150;
+		$altura = 180;
+		$tamanho = 1000;
+ 
+    	if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $foto["type"])){
+     	   $error[1] = "Isso não é uma imagem.";
+   	 	} 
+
+		$dimensoes = getimagesize($foto["tmp_name"]);
+
+		if($dimensoes[0] > $largura) {
+			$error[2] = "A largura da imagem não deve ultrapassar ".$largura." pixels";
+		}
+
+		if($dimensoes[1] > $altura) {
+			$error[3] = "Altura da imagem não deve ultrapassar ".$altura." pixels";
+		}
+	
+		if($foto["size"] > $tamanho) {
+   		 	$error[4] = "A imagem deve ter no máximo ".$tamanho." bytes";
+		}
+
+		if (count($error) == 0) {
+		
+			preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
+ 
+        	$foto_inst = md5(uniqid(time())) . "." . $ext[1];
+ 
+        	$caminho_imagem = "fotos/" . $foto_inst;
+ 
+			move_uploaded_file($foto["tmp_name"], $caminho_imagem);
+		
+			$sql = mysql_query("INSERT INTO instrumentos VALUES ('', '".$tipo."', '".$nivel."', '".$foto_inst."')");
+
+			if ($sql){
+				echo "Você foi cadastrado com sucesso.";
+			}
+		}
+	
+		if (count($error) != 0) {
+			foreach ($error as $erro) {
+				echo $erro . "<br />";
+			}
+		}
+	}
+}*/
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Cadastro de alunos</title>
+	<title>Cadastro de instrumentos</title>
 	<link href="../scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-	<h1>Cadastro de alunos</h1>
+	<h1>Cadastro de instrumentos</h1>
 
-	<a href="./index.php" class="btn btn-primary">
+	<a href="./index_inst.php" class="btn btn-primary">
 		<i class="glyphicon glyphicon-backward"></i>
 	</a>
 
@@ -98,8 +129,8 @@ if(!preg_match("/^imagem/(pjpeg|jpeg|png|gif|bmp)$/", $foto_inst["type"])){
 			if ($handle && mysqli_num_rows($handle) > 0) {
 
 				while($linha = mysqli_fetch_array($handle)) {
-					$nome = $linha['tipo'];
-					$idade = $linha['nivel'];
+					$tipo = $linha['tipo'];
+					$nivel = $linha['nivel'];
 					$foto_inst = $linha['foto_inst'];
 				}
 
@@ -116,9 +147,8 @@ if(!preg_match("/^imagem/(pjpeg|jpeg|png|gif|bmp)$/", $foto_inst["type"])){
 			<input type="nivel" name="nivel" placeholder="Nivel" class="form-control" value="<?php if($nivel) echo $nivel; ?>">
 		</div>
                 <div class="form-group">
-                <input type="foto_inst" name="foto_inst" placeholder="Imagem" syze="50" class="form-control" value="<?php if($foto_inst) echo $foto_inst; ?>">
+                <input type="file" name="foto_inst" placeholder="Imagem" value="<?php if($foto_inst) echo $foto_inst; ?>">
                 </div>
-   
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
 
