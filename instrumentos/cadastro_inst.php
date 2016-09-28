@@ -10,18 +10,14 @@
 	if ($_POST) {
 		
 		//...Valida se está tudo preenchido
-            $imagem= array();
-            $mostra=$_FILES['foto_inst'];
-            if ($_POST['tipo'] != '' && $_POST['nivel'] != '' && $_FILES['foto_inst'] != '') {
+          if ($_POST['tipo'] != '' && $_POST['nivel'] != '' && $_FILES['foto_inst'] != '') {
 			if (!isset($_POST['editar'])) {
 				$sql = "INSERT INTO instrumentos (tipo, nivel, foto_inst)
                                     VALUES ('".$_POST['tipo']."', '".$_POST['nivel']."', '".$_FILES['foto_inst']."')";
 			}else{
 				$sql = "UPDATE instrumentos SET tipo = '".$_POST['tipo']."', nivel = '".$_POST['nivel']."', foto_inst = '".$_FILES['foto_inst']."' WHERE id_instrumento = '".$_POST['editar']."'";
 			}
-
 			$handle = mysqli_query($conexao,$sql);
-
 			if ($handle) {
 				$sucesso = 1;
 				$mensagem = 'Cadastro realizado com sucesso!';
@@ -29,12 +25,10 @@
 				$erro = 1;
 				$mensagem = 'Erro ao gravar no banco';
 			}
-
 		}else{
 			$erro = 1;
 			$mensagem = 'preencha tudo!!!';
 		}
-
 	}
 ?>
 <?php
@@ -134,7 +128,6 @@
 				while($linha = mysqli_fetch_array($handle)) {
 					$tipo = $linha['tipo'];
 					$nivel = $linha['nivel'];
-					$foto_inst = $linha['foto_inst'];
 				}
 
 			}
@@ -149,9 +142,13 @@
 		<div class="form-group">
 			<input type="nivel" name="nivel" placeholder="Nivel" class="form-control" value="<?php if($nivel) echo $nivel; ?>">
 		</div>
-                <div class="form-group">
-                <input type="file" name="foto_inst" placeholder="Imagem" value="<?php if($mostra) echo $mostra; ?>">
+                </form>
+                <form method="post" enctype="multipart/form-data" action="recebeimg.php" id="form" class="form" >
+                <div class="form-group" >
+             
+                <input type="file" name="arquivo" placeholder="Imagem" value="<?php if($foto_inst) echo $foto_inst; ?>">
                 </div>
+                
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
 
