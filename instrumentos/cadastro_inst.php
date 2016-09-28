@@ -5,17 +5,16 @@
 	$sucesso = 0;
 	$tipo= '';
 	$nivel = '';
-        $foto_inst = '';
 
 	if ($_POST) {
 		
 		//...Valida se está tudo preenchido
-          if ($_POST['tipo'] != '' && $_POST['nivel'] != '' && $_FILES['foto_inst'] != '') {
+          if ($_POST['tipo'] != '' && $_POST['nivel'] != '' ) {
 			if (!isset($_POST['editar'])) {
-				$sql = "INSERT INTO instrumentos (tipo, nivel, foto_inst)
-                                    VALUES ('".$_POST['tipo']."', '".$_POST['nivel']."', '".$_FILES['foto_inst']."')";
+				$sql = "INSERT INTO instrumentos (tipo, nivel)
+                                    VALUES ('".$_POST['tipo']."', '".$_POST['nivel']."')";
 			}else{
-				$sql = "UPDATE instrumentos SET tipo = '".$_POST['tipo']."', nivel = '".$_POST['nivel']."', foto_inst = '".$_FILES['foto_inst']."' WHERE id_instrumento = '".$_POST['editar']."'";
+				$sql = "UPDATE instrumentos SET tipo = '".$_POST['tipo']."', nivel = '".$_POST['nivel']."' WHERE id_instrumento = '".$_POST['editar']."'";
 			}
 			$handle = mysqli_query($conexao,$sql);
 			if ($handle) {
@@ -31,63 +30,7 @@
 		}
 	}
 ?>
-<?php
-/*  if ($_POST) {
-	
-	$nome = $_POST['tipo'];
-	$email = $_POST['nivel'];
-	$foto_inst = $_FILES["foto_inst"];
-	
-	if (!empty($foto["tipo"])) {
-		
-		$largura = 150;
-		$altura = 180;
-		$tamanho = 1000;
- 
-    	if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $foto["type"])){
-     	   $error[1] = "Isso não é uma imagem.";
-   	 	} 
 
-		$dimensoes = getimagesize($foto["tmp_name"]);
-
-		if($dimensoes[0] > $largura) {
-			$error[2] = "A largura da imagem não deve ultrapassar ".$largura." pixels";
-		}
-
-		if($dimensoes[1] > $altura) {
-			$error[3] = "Altura da imagem não deve ultrapassar ".$altura." pixels";
-		}
-	
-		if($foto["size"] > $tamanho) {
-   		 	$error[4] = "A imagem deve ter no máximo ".$tamanho." bytes";
-		}
-
-		if (count($error) == 0) {
-		
-			preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
- 
-        	$foto_inst = md5(uniqid(time())) . "." . $ext[1];
- 
-        	$caminho_imagem = "fotos/" . $foto_inst;
- 
-			move_uploaded_file($foto["tmp_name"], $caminho_imagem);
-		
-			$sql = mysql_query("INSERT INTO instrumentos VALUES ('', '".$tipo."', '".$nivel."', '".$foto_inst."')");
-
-			if ($sql){
-				echo "Você foi cadastrado com sucesso.";
-			}
-		}
-	
-		if (count($error) != 0) {
-			foreach ($error as $erro) {
-				echo $erro . "<br />";
-			}
-		}
-	}
-}*/
-
-?>
 
 <!DOCTYPE html>
 <html>
@@ -143,12 +86,10 @@
 			<input type="nivel" name="nivel" placeholder="Nivel" class="form-control" value="<?php if($nivel) echo $nivel; ?>">
 		</div>
                 </form>
-                <form method="post" enctype="multipart/form-data" action="recebeimg.php" id="form" class="form" >
-                <div class="form-group" >
-             
-                <input type="file" name="arquivo" placeholder="Imagem" value="<?php if($foto_inst) echo $foto_inst; ?>">
-                </div>
                 
+              <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="foto_inst">
+              
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
 
@@ -156,6 +97,18 @@
            
                 
 	</form>
+        <?php
+   if(isset($_FILES['foto_inst']))
+   {
+      date_default_timezone_set("Brazil/East"); 
+ 
+      $ext = strtolower(substr($_FILES['foto_inst']['name'],-4)); 
+      $new_name = date("Y.m.d-H.i.s") . $ext; 
+      $dir = 'fotos/'; 
+ 
+      move_uploaded_file($_FILES['foto_inst']['tmp_name'], $dir.$new_name); 
+   }
+?>
 
 
 <script src="../scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
