@@ -9,14 +9,17 @@
 	if ($_POST) {
 		
 		//...Valida se está tudo preenchido
-          if ($_POST['tipo'] != '' && $_POST['nivel'] != '' ) {
+		if ($_POST['tipo'] != '' && $_POST['nivel'] != '') {
+
 			if (!isset($_POST['editar'])) {
 				$sql = "INSERT INTO instrumentos (tipo, nivel)
-                                    VALUES ('".$_POST['tipo']."', '".$_POST['nivel']."')";
+						VALUES ('".$_POST['tipo']."', '".$_POST['nivel']."')";
 			}else{
 				$sql = "UPDATE instrumentos SET tipo = '".$_POST['tipo']."', nivel = '".$_POST['nivel']."' WHERE id_instrumento = '".$_POST['editar']."'";
 			}
+
 			$handle = mysqli_query($conexao,$sql);
+
 			if ($handle) {
 				$sucesso = 1;
 				$mensagem = 'Cadastro realizado com sucesso!';
@@ -24,10 +27,12 @@
 				$erro = 1;
 				$mensagem = 'Erro ao gravar no banco';
 			}
+
 		}else{
 			$erro = 1;
 			$mensagem = 'preencha tudo!!!';
 		}
+
 	}
 ?>
 
@@ -59,7 +64,7 @@
 	<?php
 		}
 	?>
-	<form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']?>" id="form" class="form" >
+	<form method="post" enctype="multipart/form-data" action="recebeimg.php" action="<?php echo $_SERVER['PHP_SELF']?>" id="form" class="form" >
 		<?php
 
 		if (isset($_REQUEST['id']) && $_REQUEST['id'] != '') {
@@ -71,6 +76,7 @@
 				while($linha = mysqli_fetch_array($handle)) {
 					$tipo = $linha['tipo'];
 					$nivel = $linha['nivel'];
+					
 				}
 
 			}
@@ -85,11 +91,9 @@
 		<div class="form-group">
 			<input type="nivel" name="nivel" placeholder="Nivel" class="form-control" value="<?php if($nivel) echo $nivel; ?>">
 		</div>
-                </form>
-                
-              <form method="POST" enctype="multipart/form-data">
-                <input type="file" name="foto_inst">
-              
+               <!-- <div method="POST" enctype="multipart/form-data" >
+                  <input type="file" name="foto_inst"><br>
+                </div>-->
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
 
@@ -98,16 +102,29 @@
                 
 	</form>
         <?php
-   if(isset($_FILES['foto_inst']))
+  /* if(isset($_FILES['foto_inst']))
    {
       date_default_timezone_set("Brazil/East"); 
- 
+      $tiposPermitidos= array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/png');
       $ext = strtolower(substr($_FILES['foto_inst']['name'],-4)); 
       $new_name = date("Y.m.d-H.i.s") . $ext; 
-      $dir = 'fotos/'; 
- 
-      move_uploaded_file($_FILES['foto_inst']['tmp_name'], $dir.$new_name); 
+      $arqname=$_FILES['foto_inst']['tmp_name'];
+      $arqType = $_FILES['arquivo']['type'];
+      $arqError=$_FILES['arquivo']['error'];
+      
+      if ($arqError == 0) {
+            if (array_search($arqType, $tiposPermitidos) === false) {
+                echo 'O tipo de arquivo enviado é inválido!';
+        
+        } else {
+                $dir = 'fotos/'; 
+                $extensao = strtolower(end(explode('.', $arqname)));
+                $nome = time() . '.' . $extensao;
+                $nomeMySQL = mysql_real_escape_string($_POST['foto_inst']);
+                move_uploaded_file($arqname, $dir.$new_name); 
    }
+      }
+   }*/
 ?>
 
 

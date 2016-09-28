@@ -3,7 +3,9 @@ include('../inc/conexao.php');
 
 $login='';
 $password='';
-if(mysql_num_rows ($result) > 0 ){
+//if(mysqli_num_rows ($result) > 0 ){
+if ($result = mysqli_query($conn, "SELECT COUNT(*) FROM users WHERE name='" . $username . "'")) { 
+$row = $result->fetch_assoc(); 
 $_SESSION['login'] = $login;
 $_SESSION['senha'] = $senha;
 }
