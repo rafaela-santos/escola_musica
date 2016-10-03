@@ -17,7 +17,7 @@ else{
         <link href="../scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-      <br><br><a href="index.php">Voltar</a>
+      <br><br><a href="index.php" type="button" class="btn btn-primary btn-lg btn-cadastrar">Voltar</a>
     </body>
 </html>
 <script src="../scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>

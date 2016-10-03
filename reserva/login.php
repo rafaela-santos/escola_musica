@@ -1,7 +1,7 @@
 <?php
 include('../inc/conexao.php');
 
-$login='';
+/*$login='';
 $password='';
 //if(mysqli_num_rows ($result) > 0 ){
 if ($result = mysqli_query($conn, "SELECT COUNT(*) FROM users WHERE name='" . $username . "'")) { 
@@ -13,7 +13,14 @@ else{
 	unset ($_SESSION['login']);
 	unset ($_SESSION['senha']);
 	
-	}
+	}*/
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+  $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
+  $senha = (isset($_POST['senha'])) ? $_POST['senha'] : '';
+
+}
 ?>
 <html>
     <head>
@@ -21,9 +28,9 @@ else{
         <link href="../scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-        <form method="post" enctype="multipart/form-data" id="form" class="form" >
+       <form method="post" enctype="multipart/form-data" id="form" class="form" action="valida.php">
        <div class="form-group">
-           <label>|Login:</label>
+           <label>Login:</label>
 			<input type="text" name="login" placeholder="Login" class="form-control" >
 		</div>
             <div class="form-group">
@@ -32,5 +39,7 @@ else{
                         <input type="submit" value="Entrar"  />
             </div>
         </form>
+        
     </body>
 </html>
+

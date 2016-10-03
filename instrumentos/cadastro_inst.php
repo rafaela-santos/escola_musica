@@ -64,7 +64,7 @@
 	<?php
 		}
 	?>
-	<form method="post" enctype="multipart/form-data" action="recebeimg.php" action="<?php echo $_SERVER['PHP_SELF']?>" id="form" class="form" >
+	<form method="post" enctype="multipart/form-data"  action="<?php echo $_SERVER['PHP_SELF']?>" id="form" class="form" >
 		<?php
 
 		if (isset($_REQUEST['id']) && $_REQUEST['id'] != '') {
@@ -101,6 +101,15 @@
            
                 
 	</form>
+         <link href="recebeimg.php">
+<!--<script LANGUAGE="JavaScript">
+function Botao1()
+{
+document.nome_formulario.action="botao1.php";
+document.forms.recebeimg.submit();
+}
+</script>-->
+
         <?php
   /* if(isset($_FILES['foto_inst']))
    {
