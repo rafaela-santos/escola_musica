@@ -7,17 +7,18 @@
 	$idade = '';
 	$email = '';
 	$telefone = '';
+        $nivel='';
 
 	if ($_POST) {
 		
 		//...Valida se está tudo preenchido
-		if ($_POST['nome'] != '' && $_POST['idade'] != '' && $_POST['email'] != '') {
+		if ($_POST['nome'] != '' && $_POST['idade'] != '' && $_POST['email'] != ''&& $_POST['telefone'] != '' && $_POST['nivel'] != '') {
 
 			if (!isset($_POST['editar'])) {
-				$sql = "INSERT INTO alunos (nome, idade, email, telefone)
-						VALUES ('".$_POST['nome']."', '".$_POST['idade']."', '".$_POST['email']."', '".$_POST['telefone']."')";
+				$sql = "INSERT INTO alunos (nome, idade, email, telefone, nivel)
+						VALUES ('".$_POST['nome']."', '".$_POST['idade']."', '".$_POST['email']."', '".$_POST['telefone']."', '".$_POST['nivel']."')";
 			}else{
-				$sql = "UPDATE alunos SET nome = '".$_POST['nome']."', idade = '".$_POST['idade']."', email = '".$_POST['email']."', telefone = '".$_POST['telefone']."' WHERE id_aluno = '".$_POST['editar']."'";
+				$sql = "UPDATE alunos SET nome = '".$_POST['nome']."', idade = '".$_POST['idade']."', email = '".$_POST['email']."', telefone = '".$_POST['telefone']."', nivel = '".$_POST['nivel']."' WHERE id_aluno = '".$_POST['editar']."'";
 			}
 
 			$handle = mysqli_query($conexao,$sql);
@@ -80,6 +81,7 @@
 					$idade = $linha['idade'];
 					$email = $linha['email'];
 					$telefone = $linha['telefone'];
+                                        $nivel = $linha['nivel'];
 				}
 
 			}
@@ -111,6 +113,9 @@
 		</div>
 		<div class="form-group">
 			<input type="telefone" name="telefone" placeholder="Telefone" class="form-control" value="<?php if($telefone) echo $telefone; ?>">
+		</div>
+                <div class="form-group">
+			<input type="nivel" name="nivel" placeholder="Nivel" class="form-control" value="<?php if($nivel) echo $nivel; ?>">
 		</div>
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>

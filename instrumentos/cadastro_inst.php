@@ -91,9 +91,22 @@
 		<div class="form-group">
 			<input type="nivel" name="nivel" placeholder="Nivel" class="form-control" value="<?php if($nivel) echo $nivel; ?>">
 		</div>
-               <!-- <div method="POST" enctype="multipart/form-data" >
+                <?php
+                    if(isset($_FILES['fileUpload']))
+                    {
+                       date_default_timezone_set("Brazil/East"); 
+
+                       $ext = strtolower(substr($_FILES['fileUpload']['name'],-4)); 
+                       $new_name = date("Y.m.d-H.i.s") . $ext; 
+                       $dir = 'fotos/'; 
+
+                       move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dir.$new_name); 
+                       echo("Erro");
+                    }
+                ?>
+                <div method="POST" enctype="multipart/form-data" >
                   <input type="file" name="foto_inst"><br>
-                </div>-->
+                </div>
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
 
@@ -101,41 +114,7 @@
            
                 
 	</form>
-         <link href="recebeimg.php">
-<!--<script LANGUAGE="JavaScript">
-function Botao1()
-{
-document.nome_formulario.action="botao1.php";
-document.forms.recebeimg.submit();
-}
-</script>-->
-
-        <?php
-  /* if(isset($_FILES['foto_inst']))
-   {
-      date_default_timezone_set("Brazil/East"); 
-      $tiposPermitidos= array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/png');
-      $ext = strtolower(substr($_FILES['foto_inst']['name'],-4)); 
-      $new_name = date("Y.m.d-H.i.s") . $ext; 
-      $arqname=$_FILES['foto_inst']['tmp_name'];
-      $arqType = $_FILES['arquivo']['type'];
-      $arqError=$_FILES['arquivo']['error'];
-      
-      if ($arqError == 0) {
-            if (array_search($arqType, $tiposPermitidos) === false) {
-                echo 'O tipo de arquivo enviado é inválido!';
-        
-        } else {
-                $dir = 'fotos/'; 
-                $extensao = strtolower(end(explode('.', $arqname)));
-                $nome = time() . '.' . $extensao;
-                $nomeMySQL = mysql_real_escape_string($_POST['foto_inst']);
-                move_uploaded_file($arqname, $dir.$new_name); 
-   }
-      }
-   }*/
-?>
-
+         
 
 <script src="../scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 

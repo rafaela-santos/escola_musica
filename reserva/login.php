@@ -1,25 +1,37 @@
 <?php
 include('../inc/conexao.php');
 
-/*$login='';
-$password='';
-//if(mysqli_num_rows ($result) > 0 ){
-if ($result = mysqli_query($conn, "SELECT COUNT(*) FROM users WHERE name='" . $username . "'")) { 
-$row = $result->fetch_assoc(); 
-$_SESSION['login'] = $login;
-$_SESSION['senha'] = $senha;
+$usuario='';
+$senha='';
+?>
+<?PHP
+
+//$usuario = $_POST['usuario'];
+//$senha = $_POST['senha'];
+ 
+
+if (isset($_REQUEST['id']) && $_REQUEST['id'] != '') {
+        $sql = "SELECT *  FROM  login WHERE  usuario= '".$_REQUEST['id']."'";
+        $handle= mysqli_query($conexao, $sql) or die ("Error " . mysqli_error($conexao));
 }
-else{
-	unset ($_SESSION['login']);
-	unset ($_SESSION['senha']);
-	
-	}*/
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-  $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
-  $senha = (isset($_POST['senha'])) ? $_POST['senha'] : '';
-
+if ($handle && mysqli_num_rows ($handle ) > 0) {
+  
+   // session_start();
+     
+     $usuario=$_SESSION['usuario'] ;
+     $senha=$_SESSION['senha'] ;
+}
+ 
+else {
+   
+  //  session_destroy();
+ 
+   
+  /*  unset ($_SESSION['usuario']);
+    unset ($_SESSION['senha']);
+   //header('location:login.php');*/
+     
 }
 ?>
 <html>
