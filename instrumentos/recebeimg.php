@@ -2,7 +2,7 @@
 	include('../inc/conexao.php');
 ?>
 
-</html>
+<html>
 <head>
    <title>upload de imagens</title>
 </head>
@@ -15,7 +15,7 @@
 </html>
  
 <?php
-  /* if(isset($_FILES['fileUpload']))
+  if(isset($_FILES['fileUpload']))
    {
       date_default_timezone_set("Brazil/East"); 
  
@@ -24,7 +24,9 @@
       $dir = 'imagens/'; 
  
       move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dir.$new_name); 
-   }*/
+   }
+   ?>
+<?php
  /*if(isset($_FILES['foto_inst']))
    {
       date_default_timezone_set("Brazil/East"); 
@@ -49,7 +51,7 @@
       }
    }*/
 
-$consulta = mysqli_query("SELECT * FROM instrumentos WHERE (titulo = '$titulo' OR conteudo = '$conteudo')");
+/*$consulta = mysqli_query("SELECT * FROM instrumentos WHERE (titulo = '$titulo' OR conteudo = '$conteudo')");
 $resultado = mysqli_num_rows($consulta);
 if ($resultado != 0){
 	echo "<font face=verdana color=red size=8><center>material já cadastrado</center>
@@ -138,5 +140,6 @@ if($figura)
 	}
 }
 }
-
+*/
 ?>
+ 

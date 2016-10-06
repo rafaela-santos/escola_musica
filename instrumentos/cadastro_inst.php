@@ -91,22 +91,24 @@
 		<div class="form-group">
 			<input type="nivel" name="nivel" placeholder="Nivel" class="form-control" value="<?php if($nivel) echo $nivel; ?>">
 		</div>
+                
+                <input type="file" name="fileUpload">
+                
                 <?php
-                    if(isset($_FILES['fileUpload']))
+                    $sql = "SELECT * FROM instrumentos";
+                    $handle = mysqli_query($sql, -4);
+
+                    while($salva = mysqli_fetch_array($handle, -4))
                     {
-                       date_default_timezone_set("Brazil/East"); 
-
-                       $ext = strtolower(substr($_FILES['fileUpload']['name'],-4)); 
-                       $new_name = date("Y.m.d-H.i.s") . $ext; 
-                       $dir = 'fotos/'; 
-
-                       move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dir.$new_name); 
-                       echo("Erro");
-                    }
-                ?>
-                <div method="POST" enctype="multipart/form-data" >
-                  <input type="file" name="foto_inst"><br>
-                </div>
+                    print "$salva[titulo]
+                    <br>
+                    $salva[nome] ($salva[tipo])
+                    <br>
+                    <a href='recebeimg.php?id=$salva[id]'>Fazer Download</a>
+                        <br>
+                        <br>";
+}
+?>
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
 

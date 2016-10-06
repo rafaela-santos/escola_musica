@@ -55,7 +55,7 @@
 	</table>
 	<?php
 	}else{
-		echo 'Não existem registros de instrumentos.';
+		echo '<br>Não existem registros de instrumentos.';
 	}
 	?>
 

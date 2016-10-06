@@ -1,23 +1,19 @@
 <?php
 include('../inc/conexao.php');
 
-$usuario='';
-$senha='';
 ?>
 <?PHP
 
-//$usuario = $_POST['usuario'];
-//$senha = $_POST['senha'];
- 
+$usuario= isset($_POST['usuario']);
+$senha=isset($_POST['senha']);
 
 if (isset($_REQUEST['id']) && $_REQUEST['id'] != '') {
         $sql = "SELECT *  FROM  login WHERE  usuario= '".$_REQUEST['id']."'";
-        $handle= mysqli_query($conexao, $sql) or die ("Error " . mysqli_error($conexao));
-}
+        $handle= mysqli_query($conexao, $sql);
 
 if ($handle && mysqli_num_rows ($handle ) > 0) {
   
-   // session_start();
+    session_start();
      
      $usuario=$_SESSION['usuario'] ;
      $senha=$_SESSION['senha'] ;
@@ -25,15 +21,17 @@ if ($handle && mysqli_num_rows ($handle ) > 0) {
  
 else {
    
-  //  session_destroy();
+   session_destroy();
  
    
-  /*  unset ($_SESSION['usuario']);
+    unset ($_SESSION['usuario']);
     unset ($_SESSION['senha']);
-   //header('location:login.php');*/
+   header('location:login.php');
      
 }
+}
 ?>
+
 <html>
     <head>
         <title>Login</title>
@@ -48,7 +46,7 @@ else {
             <div class="form-group">
                 <label>Senha:</label>
 			<input type="password" name="senha" placeholder="Senha" class="form-control" >
-                        <input type="submit" value="Entrar"  />
+                      <input type="submit" name="entrar" value="Entrar" class="btn btn-success">
             </div>
         </form>
         
