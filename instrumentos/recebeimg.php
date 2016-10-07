@@ -15,7 +15,7 @@
 </html>
  
 <?php
-  if(isset($_FILES['fileUpload']))
+ /* if(isset($_FILES['fileUpload']))
    {
       date_default_timezone_set("Brazil/East"); 
  
@@ -24,7 +24,7 @@
       $dir = 'imagens/'; 
  
       move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dir.$new_name); 
-   }
+   }*/
    ?>
 <?php
  /*if(isset($_FILES['foto_inst']))

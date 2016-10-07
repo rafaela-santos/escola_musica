@@ -37,7 +37,7 @@
 			<td><?php echo $linha['id_instrumento'];?></td>
 			<td><?php echo $linha['tipo'];?></td>
 			<td><?php echo $linha['nivel'];?></td>
-			<td><?php echo $linha['foto_inst'];?></td>
+                        <td>'.'<img width="100" height="100" src="imagens/foto_inst.jpeg'"/>'.'</td>
 			<td>
 				<a href="./cadastro_inst.php?id=<?php echo $linha['id_instrumento'];?>">
 					<span class="glyphicon glyphicon-pencil"></span>
