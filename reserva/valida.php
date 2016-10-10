@@ -3,30 +3,6 @@
 ?>
 <?php
 
-
-function validaUsuario($usuario, $senha) {
-
-  $nusuario = addslashes($usuario);
-  $nsenha = addslashes($senha);
-
-  $sql = "SELECT 'login' FROM `".$_POST['login']."` WHERE ".$usuario." `usuario` = '".$nusuario."' AND ".$senha." `senha` = '".$nsenha."' LIMIT 1";
-  $query = mysqli_query($sql, $conexao);
-  $resultado = mysqli_fetch_assoc($query, $conexao);
-
-  if (empty($resultado)) {
- 
-    return false;
-  } else {
-
-    $_SESSION['usuarioID'] = $resultado['id']; 
-    $_SESSION['usuarioNome'] = $resultado['nome']; 
-    if ($_POST['validaSempre'] == true) {
-    $_SESSION['usuarioLogin'] = $usuario;
-    $_SESSION['usuarioSenha'] = $senha;
-    }
-    return true;
-  }
-}
 ?>
 <html>
     <head>

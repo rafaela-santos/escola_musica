@@ -5,7 +5,6 @@
 	$sucesso = 0;
 	$tipo= '';
 	$nivel = '';
-        $foto_inst='';
 
 	if ($_POST) {
 		
@@ -77,7 +76,6 @@
 				while($linha = mysqli_fetch_array($handle)) {
 					$tipo = $linha['tipo'];
 					$nivel = $linha['nivel'];
-                                        $foto_inst= $linha['foto_inst'];
 					
 				}
 
@@ -94,23 +92,18 @@
 			<input type="nivel" name="nivel" placeholder="Nivel" class="form-control" value="<?php if($nivel) echo $nivel; ?>">
 		</div>
                 
-                <input type="file" accept="image/*" id="fileToUpload" name="fileToUpload" class="form-control"/>
-                
+                <input type="file" name="fileUpload" class="form-control"><br>
                 <?php
-                if(isset($_FILES['fileUpload']))
-                  {
-                     date_default_timezone_set("Brazil/East"); 
+                  if(isset($_FILES['fileUpload']))
+                    {
+                       date_default_timezone_set("Brazil/East"); 
 
-                     $ext = strtolower(substr($_FILES['fileUpload']['name'],-4)); 
-                     $new_name = date("Y.m.d-H.i.s") . $ext; 
-                     $dir = 'imagens/'; 
+                       $ext = strtolower(substr($_FILES['fileUpload']['name'],-4)); 
+                       $new_name = date("Y.m.d-H.i.s") . $ext; 
+                       $dir = 'imagens/';
 
-                  
-                  $foto_inst = addslashes(file_get_contents($_FILES['fileToUpload']['tmp_name']));
-                  $image_name = addslashes($_FILES['foto_inst']['name']);
-                  $image_size = getimagesize($_FILES['foto_inst']['tmp_name']);
-                  }
-                  $sql="INSERT INTO instrumentos (tipo, nivel, foto_inst) VALUES ('".$tipo."', '".$nivel."', '".$foto_inst."')";
+                       move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dir.$new_name); 
+                    }
                   ?>
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>

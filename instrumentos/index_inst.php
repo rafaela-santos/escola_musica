@@ -7,6 +7,15 @@
 <head>
 	<title>Listagem de instrumentos</title>
 	<link href="../scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+          <script language="Javascript">
+            function confirmacao(id) {
+                 var resposta = confirm("Deseja remover esse registro?");
+
+                 if (resposta == true) {
+                      window.location.href = "delete_img.php?id="+id;
+                 }
+            }
+        </script>
 </head>
 <body>
 
@@ -36,12 +45,14 @@
 		<tr>
 			<td><?php echo $linha['id_instrumento'];?></td>
 			<td><?php echo $linha['tipo'];?></td>
-			<td><?php echo $linha['nivel'];?></td>
-                        <td>'.'<img width="100" height="100" src="imagens/foto_inst.jpeg'"/>'.'</td>
+                        <td><?php echo $linha['nivel'];?></td>
+                        <td>'.'<img width="100" height="100" src="imagens/"/>'.'</td>
 			<td>
 				<a href="./cadastro_inst.php?id=<?php echo $linha['id_instrumento'];?>">
 					<span class="glyphicon glyphicon-pencil"></span>
 				</a> 
+                            <a href="javascript:func()" onclick="confirmacao('1')" >
+                            </a>
                                  <a href="./delete_img.php?id=<?php echo $linha['id_instrumento'];?>">
                                         <span class="glyphicon glyphicon-trash"></span>
 				</a>
