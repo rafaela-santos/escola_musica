@@ -30,6 +30,8 @@
 			<th>Email</th>
 			<th>Telefone</th>
                         <th>Nivel</th>
+                        <th>Login</th>
+                        <th>Senha</th>
 			<th width="100px;">Ações</th>
 		</tr>
 		<?php
@@ -41,7 +43,9 @@
 			<td><?php echo $linha['idade'];?></td>
 			<td><?php echo $linha['email'];?></td>
 			<td><?php echo $linha['telefone'];?></td>
-                        <td><?php echo $linha['nivel'];?></td>
+                        <td><?php echo $linha['id_nivel'];?></td>
+                        <td><?php echo $linha['login'];?></td>
+                        <td><?php echo $linha['senha'];?></td>
 			<td>
 				<a href="./cadastro.php?id=<?php echo $linha['id_aluno'];?>">
 					<span class="glyphicon glyphicon-pencil"></span>

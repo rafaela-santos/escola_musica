@@ -7,18 +7,20 @@
 	$idade = '';
 	$email = '';
 	$telefone = '';
-        $nivel='';
+        $id_nivel='';
+        $login='';
+        $senha='';
 
 	if ($_POST) {
 		
 		//...Valida se está tudo preenchido
-		if ($_POST['nome'] != '' && $_POST['idade'] != '' && $_POST['email'] != ''&& $_POST['telefone'] != '' && $_POST['nivel'] != '') {
+		if ($_POST['nome'] != '' && $_POST['idade'] != '' && $_POST['email'] != ''&& $_POST['telefone'] != '' && $_POST['id_nivel'] != ''  && $_POST['login'] != ''  && $_POST['senha'] != '') {
 
 			if (!isset($_POST['editar'])) {
-				$sql = "INSERT INTO alunos (nome, idade, email, telefone, nivel)
-						VALUES ('".$_POST['nome']."', '".$_POST['idade']."', '".$_POST['email']."', '".$_POST['telefone']."', '".$_POST['nivel']."')";
+				$sql = "INSERT INTO alunos (nome, idade, email, telefone, id_nivel, login, senha)
+						VALUES ('".$_POST['nome']."', '".$_POST['idade']."', '".$_POST['email']."', '".$_POST['telefone']."', '".$_POST['id_nivel']."', '".$_POST['login']."', '".$_POST['senha']."')";
 			}else{
-				$sql = "UPDATE alunos SET nome = '".$_POST['nome']."', idade = '".$_POST['idade']."', email = '".$_POST['email']."', telefone = '".$_POST['telefone']."', nivel = '".$_POST['nivel']."' WHERE id_aluno = '".$_POST['editar']."'";
+				$sql = "UPDATE alunos SET nome = '".$_POST['nome']."', idade = '".$_POST['idade']."', email = '".$_POST['email']."', telefone = '".$_POST['telefone']."', id_nivel = '".$_POST['id_nivel']."' , login = '".$_POST['login']."' , senha = '".$_POST['senha']."' WHERE id_aluno = '".$_POST['editar']."'";
 			}
 
 			$handle = mysqli_query($conexao,$sql);
@@ -81,7 +83,9 @@
 					$idade = $linha['idade'];
 					$email = $linha['email'];
 					$telefone = $linha['telefone'];
-                                        $nivel = $linha['nivel'];
+                                        $id_nivel = $linha['id_nivel'];
+                                        $login = $linha['login'];
+                                        $senha = $linha['senha'];
 				}
 
 			}
@@ -91,7 +95,7 @@
 		}
 		?>
 		<div class="form-group">
-			<input type="nome" name="nome" placeholder="Nome" class="form-control" value="<?php if($nome) echo $nome; ?>">
+                    <input type="text" name="nome" placeholder="Nome" class="form-control" value="<?php if($nome) echo $nome; ?>">
 		</div>
 		<div class="form-group">
 			<input type="idade" name="idade" placeholder="Idade" class="form-control" onkeyup="somenteNumeros(this);" value="<?php if($idade) echo $idade; ?>">
@@ -103,8 +107,16 @@
 			<input type="telefone" name="telefone" placeholder="Telefone" class="form-control" value="<?php if($telefone) echo $telefone; ?>">
 		</div>
                 <div class="form-group">
-			<input type="nivel" name="nivel" placeholder="Nivel" class="form-control" value="<?php if($nivel) echo $nivel; ?>">
+			<input type="id_nivel" name="id_nivel" placeholder="Nivel" class="form-control" value="<?php if($id_nivel) echo $id_nivel; ?>">
 		</div>
+                <div class="form-group">
+			<input type="login" name="login" placeholder="Login" class="form-control" value="<?php if($login) echo $login; ?>">
+		</div>
+
+                <div class="form-group">
+                    <input type="password" name="senha" placeholder="Senha" class="form-control" value="<?php if($senha) echo $senha; ?>">
+		</div>
+
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
 

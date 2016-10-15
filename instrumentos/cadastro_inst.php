@@ -1,21 +1,22 @@
 <?php
+        session_start();
 	include('../inc/conexao.php');
 
 	$erro = 0;
 	$sucesso = 0;
 	$tipo= '';
-	$nivel = '';
+	$id_nivel = '';
 
 	if ($_POST) {
 		
 		//...Valida se está tudo preenchido
-		if ($_POST['tipo'] != '' && $_POST['nivel'] != '') {
+		if ($_POST['tipo'] != '' && $_POST['id_nivel'] != '') {
 
 			if (!isset($_POST['editar'])) {
-				$sql = "INSERT INTO instrumentos (tipo, nivel)
-						VALUES ('".$_POST['tipo']."', '".$_POST['nivel']."')";
+				$sql = "INSERT INTO instrumentos (tipo, id_nivel)
+						VALUES ('".$_POST['tipo']."', '".$_POST['id_nivel']."')";
 			}else{
-				$sql = "UPDATE instrumentos SET tipo = '".$_POST['tipo']."', nivel = '".$_POST['nivel']."' WHERE id_instrumento = '".$_POST['editar']."'";
+				$sql = "UPDATE instrumentos SET tipo = '".$_POST['tipo']."', id_nivel = '".$_POST['id_nivel']."' WHERE id_instrumento = '".$_POST['editar']."'";
 			}
 
 			$handle = mysqli_query($conexao,$sql);
@@ -75,7 +76,7 @@
 
 				while($linha = mysqli_fetch_array($handle)) {
 					$tipo = $linha['tipo'];
-					$nivel = $linha['nivel'];
+					$id_nivel = $linha['id_nivel'];
 					
 				}
 
@@ -89,7 +90,7 @@
 			<input type="tipo" name="tipo" placeholder="Tipo" class="form-control" value="<?php if($tipo) echo $tipo; ?>">
 		</div>
 		<div class="form-group">
-			<input type="nivel" name="nivel" placeholder="Nivel" class="form-control" value="<?php if($nivel) echo $nivel; ?>">
+			<input type="id_nivel" name="id_nivel" placeholder="Nivel" class="form-control" value="<?php if($id_nivel) echo $id_nivel; ?>">
 		</div>
                 
                 <input type="file" name="fileUpload" class="form-control"><br>

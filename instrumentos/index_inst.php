@@ -1,4 +1,5 @@
 <?php
+        session_start();
 	include('../inc/conexao.php');
 ?>
 
@@ -45,7 +46,7 @@
 		<tr>
 			<td><?php echo $linha['id_instrumento'];?></td>
 			<td><?php echo $linha['tipo'];?></td>
-                        <td><?php echo $linha['nivel'];?></td>
+                        <td><?php echo $linha['id_nivel'];?></td>
                         <td>'.'<img width="100" height="100" src="imagens/"/>'.'</td>
 			<td>
 				<a href="./cadastro_inst.php?id=<?php echo $linha['id_instrumento'];?>">
