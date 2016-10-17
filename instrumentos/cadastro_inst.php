@@ -105,7 +105,7 @@
 		$sql = "SELECT * FROM niveis";
 		$handle = mysqli_query($conexao, $sql);
 
-		if ($handle && mysql_num_rows($handle) > 0) {
+		if ($handle && mysqli_num_rows($handle) > 0) {
 		?>
 		<select name="nivel" id="nivel">
 			<option value="">Selecione o nÃ­vel</option>

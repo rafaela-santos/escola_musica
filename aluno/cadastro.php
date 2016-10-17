@@ -10,10 +10,10 @@
 	$idade = '';
 	$email = '';
 	$telefone = '';
-    $id_nivel='';
-    $login='';
-    $senha='';
-    $tipo = '';
+        $id_nivel='';
+        $login='';
+        $senha='';
+        $tipo = '';
 
 	if ($_POST) {
 		
@@ -125,7 +125,7 @@
 		if ($handle && mysqli_num_rows($handle) > 0) {
 		?>
 		<select name="nivel" id="nivel">
-			<option value="">Selecione o nÃ­vel</option>
+			<option value="">Selecione o nivel</option>
 			<?php
 			while($linha = mysqli_fetch_array($handle)) {
 			?>
