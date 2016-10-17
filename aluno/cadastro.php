@@ -150,13 +150,13 @@
 			<input type="login" name="login" placeholder="Login" class="form-control" value="<?php if($login) echo $login; ?>">
 		</div>
 		<?php
-		if (!isset($_REQUEST['id']) && $_REQUEST['id'] == '') {
+		//if (!isset($_REQUEST['id']) && $_REQUEST['id'] == '') {
 		?>
         <div class="form-group">
             <input type="password" name="senha" placeholder="Senha" class="form-control">
 		</div>
 		<?php
-		}
+		//}
 		?>
 		<div class="preloader" style="display: none;">Enviando dados...</div>
 

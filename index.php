@@ -19,7 +19,9 @@
 
 			if ($handle && mysqli_num_rows($handle) > 0) {
 				while($linha = mysqli_fetch_array($handle)) {
-					$_SESSION['id'] = $linha['id_aluno'];
+                                        
+                                        
+                                        $_SESSION['id'] = $linha['id_aluno'];
 					$_SESSION['login'] = $linha['login'];
 					$_SESSION['nome'] = $linha['nome'];
 					$_SESSION['tipo_usuario'] = $linha['tipo'];
