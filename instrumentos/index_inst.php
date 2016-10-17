@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
 	<title>Listagem de instrumentos</title>
 	<link href="../scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
           <script language="Javascript">
@@ -39,9 +40,9 @@
 		<tr>
 			<th>Id</th>
 			<th>Tipo</th>
-			<th>Nivel</th>
+			<th>Nível</th>
 			<th>Imagem</th>
-			<th width="100px;">AÃ§Ãµes</th>
+			<th width="100px;">Ações</th>
 		</tr>
 		<?php
 			while($linha = mysqli_fetch_array($handle)) {
@@ -49,7 +50,7 @@
 		<tr>
 			<td><?php echo $linha['id_instrumento'];?></td>
 			<td><?php echo $linha['tipo'];?></td>
-                        <td><?php echo $linha['id_nivel'];?></td>
+                        <td><?php echo $linha['id_nivel2'];?></td>
                         <td>'.'<img width="100" height="100" src="imagens/<?php echo $linha['foto'];?>">'.'</td>
 			<td>
 				<a href="./cadastro_inst.php?id=<?php echo $linha['id_instrumento'];?>">

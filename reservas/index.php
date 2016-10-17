@@ -44,7 +44,7 @@
 
 		<div class="form-group">
 		<?php
-		$sql = "SELECT * FROM instrumentos WHERE id_nivel = ".$nivel."";
+		$sql = "SELECT * FROM instrumentos WHERE id_nivel2 = ".$nivel."";
 		$handle = mysqli_query($conexao, $sql);
 
 		if ($handle && mysqli_num_rows($handle) > 0) {

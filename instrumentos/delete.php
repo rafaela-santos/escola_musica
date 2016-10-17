@@ -27,7 +27,7 @@
 		if ($handle) {
 			@unlink('imagens/'.$foto);
 			$sucesso = 1;
-			$mensagem = 'Cadastro realizado com sucesso!';
+                        header("Location: index_inst.php");
 		}else{
 			$erro = 1;
 			$mensagem = 'Erro ao gravar no banco';
@@ -39,13 +39,13 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-	<title>RemoÃ§Ã£o de instrumentos</title>
+<head><meta charset="UTF-8">
+	<title>Remoção de instrumentos</title>
 	<link href="../scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-	<h1>RemoÃ§Ã£o de instrumentos</h1>
+	<h1>Remoçãode instrumentos</h1>
 
 	<a href="./index_inst.php" class="btn btn-primary">
 		<i class="glyphicon glyphicon-backward"></i>
@@ -75,7 +75,7 @@
 
 				while($linha = mysqli_fetch_array($handle)) {
 					$tipo = $linha['tipo'];
-					$id_nivel = $linha['id_nivel'];
+					$id_nivel = $linha['id_nivel2'];
 					$foto = $linha['foto'];					
 				}
 
@@ -96,7 +96,7 @@
 		if ($handle && mysqli_num_rows($handle) > 0) {
 		?>
 		<select name="nivel" id="nivel" disabled="disabled">
-			<option value="">Selecione o nÃ­vel</option>
+			<option value="">Selecione o nível</option>
 			<?php
 			while($linha = mysqli_fetch_array($handle)) {
 			?>
