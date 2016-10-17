@@ -1,4 +1,7 @@
 <?php
+	session_start();
+	include('../inc/verifica_login.php');
+	include('../inc/verifica_usuario.php');
 	include('../inc/conexao.php');
 
 	$erro = 0;
@@ -7,32 +10,39 @@
 	$idade = '';
 	$email = '';
 	$telefone = '';
-        $id_nivel='';
-        $login='';
-        $senha='';
+    $id_nivel='';
+    $login='';
+    $senha='';
+    $tipo = '';
 
 	if ($_POST) {
 		
-		//...Valida se está tudo preenchido
-		if ($_POST['nome'] != '' && $_POST['idade'] != '' && $_POST['email'] != ''&& $_POST['telefone'] != '' && $_POST['id_nivel'] != ''  && $_POST['login'] != ''  && $_POST['senha'] != '') {
+		//...Valida se estÃ¡ tudo preenchido
+		if ($_POST['nome'] != '' && $_POST['idade'] != '' && $_POST['email'] != '' && $_POST['nivel'] != ''  && $_POST['login'] != '' && $_POST['tipo'] != '') {
 
 			if (!isset($_POST['editar'])) {
-				$sql = "INSERT INTO alunos (nome, idade, email, telefone, id_nivel, login, senha)
-						VALUES ('".$_POST['nome']."', '".$_POST['idade']."', '".$_POST['email']."', '".$_POST['telefone']."', '".$_POST['id_nivel']."', '".$_POST['login']."', '".$_POST['senha']."')";
+				if ($_POST['senha'] != '') {
+					$sql = "INSERT INTO alunos (nome, idade, email, telefone, id_nivel, login, senha, tipo)
+							VALUES ('".$_POST['nome']."', '".$_POST['idade']."', '".$_POST['email']."', '".$_POST['telefone']."', '".$_POST['nivel']."', '".$_POST['login']."', '".$_POST['senha']."', '".$_POST['tipo']."')";
+				}else{
+					$erro = 1;
+					$mensagem = 'preencha tudo!!!';
+				}
 			}else{
-				$sql = "UPDATE alunos SET nome = '".$_POST['nome']."', idade = '".$_POST['idade']."', email = '".$_POST['email']."', telefone = '".$_POST['telefone']."', id_nivel = '".$_POST['id_nivel']."' , login = '".$_POST['login']."' , senha = '".$_POST['senha']."' WHERE id_aluno = '".$_POST['editar']."'";
+				$sql = "UPDATE alunos SET nome = '".$_POST['nome']."', idade = '".$_POST['idade']."', email = '".$_POST['email']."', telefone = '".$_POST['telefone']."', id_nivel = '".$_POST['nivel']."' , login = '".$_POST['login']."' ,tipo = '".$_POST['tipo']."' WHERE id_aluno = '".$_POST['editar']."'";
 			}
 
-			$handle = mysqli_query($conexao,$sql);
+			if($erro != 1) {
+				$handle = mysqli_query($conexao, $sql);
 
-			if ($handle) {
-				$sucesso = 1;
-				$mensagem = 'Cadastro realizado com sucesso!';
-			}else{
-				$erro = 1;
-				$mensagem = 'Erro ao gravar no banco';
+				if ($handle) {
+					$sucesso = 1;
+					$mensagem = 'Cadastro realizado com sucesso!';
+				}else{
+					$erro = 1;
+					$mensagem = 'Erro ao gravar no banco';
+				}
 			}
-
 		}else{
 			$erro = 1;
 			$mensagem = 'preencha tudo!!!';
@@ -74,7 +84,7 @@
 
 		if (isset($_REQUEST['id']) && $_REQUEST['id'] != '') {
 			$sql = "SELECT * FROM alunos WHERE id_aluno = '".$_REQUEST['id']."'";
-			$handle = mysqli_query($conexao,$sql);
+			$handle = mysqli_query($conexao, $sql);
 
 			if ($handle && mysqli_num_rows($handle) > 0) {
 
@@ -86,6 +96,7 @@
                                         $id_nivel = $linha['id_nivel'];
                                         $login = $linha['login'];
                                         $senha = $linha['senha'];
+                                        $tipo = $linha['tipo'];
 				}
 
 			}
@@ -106,23 +117,50 @@
 		<div class="form-group">
 			<input type="telefone" name="telefone" placeholder="Telefone" class="form-control" value="<?php if($telefone) echo $telefone; ?>">
 		</div>
-                <div class="form-group">
-			<input type="id_nivel" name="id_nivel" placeholder="Nivel" class="form-control" value="<?php if($id_nivel) echo $id_nivel; ?>">
+        <div class="form-group">
+		<?php
+		$sql = "SELECT * FROM niveis";
+		$handle = mysqli_query($conexao, $sql);
+
+		if ($handle && mysqli_num_rows($handle) > 0) {
+		?>
+		<select name="nivel" id="nivel">
+			<option value="">Selecione o nÃ­vel</option>
+			<?php
+			while($linha = mysqli_fetch_array($handle)) {
+			?>
+			<option value="<?php echo $linha['id_nivel'];?>" <?php if($id_nivel == $linha['id_nivel']) echo 'selected="selected"'; else echo ''; ?> ><?php echo $linha['nivel']; ?></option>
+			<?php
+			}
+			?>
+		</select>
+		<?php
+		}
+		?>
 		</div>
-                <div class="form-group">
+		<div class="form-group">
+		<select name="tipo" id="tipo">
+			<option value="">Selecione o tipo</option>			
+			<option value="0" <?php if ($tipo == 0) echo 'selected="selected"'; ?> >Funcionario</option>
+			<option value="1" <?php if ($tipo == 1) echo 'selected="selected"'; ?>>Aluno</option>
+		</select>
+
+		</div>
+        <div class="form-group">
 			<input type="login" name="login" placeholder="Login" class="form-control" value="<?php if($login) echo $login; ?>">
 		</div>
-
-                <div class="form-group">
-                    <input type="password" name="senha" placeholder="Senha" class="form-control" value="<?php if($senha) echo $senha; ?>">
+		<?php
+		if (!isset($_REQUEST['id']) && $_REQUEST['id'] == '') {
+		?>
+        <div class="form-group">
+            <input type="password" name="senha" placeholder="Senha" class="form-control">
 		</div>
-
-
+		<?php
+		}
+		?>
 		<div class="preloader" style="display: none;">Enviando dados...</div>
 
 		<input type="submit" name="enviar" value="Enviar dados" class="btn btn-success">
-           
-                
 	</form>
 
 

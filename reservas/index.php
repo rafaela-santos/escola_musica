@@ -11,7 +11,7 @@
 	$email = '';
 	$telefone = '';
 
-	//...Pega o nível do aluno
+	//...Pega o nÃ­vel do aluno
 	$sql = "SELECT * FROM alunos WHERE id_aluno = '".$_SESSION['id']."' ";
 	$handle = mysqli_query($conexao, $sql);
 
@@ -45,7 +45,7 @@
 		<div class="form-group">
 		<?php
 		$sql = "SELECT * FROM instrumentos WHERE id_nivel = ".$nivel."";
-		$handle = mysqli_query( $conexao, $sql);
+		$handle = mysqli_query($conexao, $sql);
 
 		if ($handle && mysqli_num_rows($handle) > 0) {
 		?>
@@ -83,15 +83,15 @@
 		<?php
 		}
 		?>
-                    <br> <table class="table table-striped">
-                 <br><th> Horario Disponivel:</th>
-		<tr>
-                   <td><input type="checkbox" name="horario" value="1">13:00<br></td>
-                 </tr>
-                <tr>
-                   <td><input type="checkbox" name="horario" value="1">16:30<br></td>
-                 </tr>
-                </table>
+		</div>
+
+		<div class="form-group">
+			Data inicio
+			<input type="text" name="data_inicio" id="data_inicio"> Hora
+			<input type="text" name="hora_inicio" id="hora_inicio">
+
+		</div>
+
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
 

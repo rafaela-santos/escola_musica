@@ -1,17 +1,17 @@
 <?php
-        session_start();
+    session_start();
+    include('../inc/verifica_login.php');
+    include('../inc/verifica_usuario.php');
 	include('../inc/conexao.php');
 ?>
 <?php
-$pasta="imagens/";
 $sql = "DELETE FROM instrumentos WHERE id_instrumento = '".$_REQUEST['id']."'";
 $handle = mysqli_query($conexao, $sql);
 if($handle){
-echo "Registro excluído com sucesso!";
-   rmdir($pasta);
+echo "Registro excluÃ­do com sucesso!";
 }
 else{
-    echo("não é possivel deletar");
+    echo("nÃ£o Ã© possivel deletar");
 }
 
 ?>

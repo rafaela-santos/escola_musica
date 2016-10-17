@@ -1,4 +1,7 @@
 <?php
+	session_start();
+	include('../inc/verifica_login.php');
+	include('../inc/verifica_usuario.php');
 	include('../inc/conexao.php');
 ?>
 
@@ -17,7 +20,7 @@
 
 	<?php
 		$sql = "SELECT * FROM alunos";
-		$handle = mysqli_query($conexao,$sql);
+		$handle = mysqli_query($conexao, $sql);
 
 		if ($handle && mysqli_num_rows($handle) > 0) {
 	?>
@@ -31,8 +34,7 @@
 			<th>Telefone</th>
                         <th>Nivel</th>
                         <th>Login</th>
-                        <th>Senha</th>
-			<th width="100px;">Ações</th>
+			<th width="100px;">AÃ§Ãµes</th>
 		</tr>
 		<?php
 			while($linha = mysqli_fetch_array($handle)) {
@@ -45,7 +47,6 @@
 			<td><?php echo $linha['telefone'];?></td>
                         <td><?php echo $linha['id_nivel'];?></td>
                         <td><?php echo $linha['login'];?></td>
-                        <td><?php echo $linha['senha'];?></td>
 			<td>
 				<a href="./cadastro.php?id=<?php echo $linha['id_aluno'];?>">
 					<span class="glyphicon glyphicon-pencil"></span>
@@ -63,7 +64,7 @@
 	</table>
 	<?php
 	}else{
-		echo 'Não existem registros.';
+		echo 'NÃ£o existem registros.';
 	}
 	?>
 

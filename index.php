@@ -15,13 +15,15 @@
 		if ($_POST['login'] != '' && $_POST['senha'] != ''){
 			
 			$sql = "SELECT * FROM alunos WHERE login = '".$_POST['login']."' AND senha = '".md5($_POST['senha'])."'";
-			$handle = mysqli_query($conexao, $sql );
+			$handle = mysqli_query($conexao, $sql);
 
 			if ($handle && mysqli_num_rows($handle) > 0) {
 				while($linha = mysqli_fetch_array($handle)) {
 					$_SESSION['id'] = $linha['id_aluno'];
 					$_SESSION['login'] = $linha['login'];
 					$_SESSION['nome'] = $linha['nome'];
+					$_SESSION['tipo_usuario'] = $linha['tipo'];
+					
 					header('location: reservas');
 				}
 				
@@ -73,4 +75,4 @@
 <script src="scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
 </body>
-</html>
+</html>20

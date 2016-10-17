@@ -1,6 +1,9 @@
 <?php
-        session_start();
+    session_start();
+	include('../inc/verifica_login.php');
+	include('../inc/verifica_usuario.php');
 	include('../inc/conexao.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +30,7 @@
 
 	<?php
 		$sql = "SELECT * FROM instrumentos";
-		$handle = mysqli_query($conexao,$sql);
+		$handle = mysqli_query($conexao, $sql);
 
 		if ($handle && mysqli_num_rows($handle) > 0) {
 	?>
@@ -38,7 +41,7 @@
 			<th>Tipo</th>
 			<th>Nivel</th>
 			<th>Imagem</th>
-			<th width="100px;">Ações</th>
+			<th width="100px;">AÃ§Ãµes</th>
 		</tr>
 		<?php
 			while($linha = mysqli_fetch_array($handle)) {
@@ -47,14 +50,12 @@
 			<td><?php echo $linha['id_instrumento'];?></td>
 			<td><?php echo $linha['tipo'];?></td>
                         <td><?php echo $linha['id_nivel'];?></td>
-                        <td>'.'<img width="100" height="100" src="imagens/"/>'.'</td>
+                        <td>'.'<img width="100" height="100" src="imagens/<?php echo $linha['foto'];?>">'.'</td>
 			<td>
 				<a href="./cadastro_inst.php?id=<?php echo $linha['id_instrumento'];?>">
 					<span class="glyphicon glyphicon-pencil"></span>
 				</a> 
-                            <a href="javascript:func()" onclick="confirmacao('1')" >
-                            </a>
-                                 <a href="./delete_img.php?id=<?php echo $linha['id_instrumento'];?>">
+                                 <a href="./delete.php?id=<?php echo $linha['id_instrumento'];?>">
                                         <span class="glyphicon glyphicon-trash"></span>
 				</a>
                              
@@ -67,7 +68,7 @@
 	</table>
 	<?php
 	}else{
-		echo '<br>Não existem registros de instrumentos.';
+		echo '<br>NÃ£o existem registros de instrumentos.';
 	}
 	?>
 

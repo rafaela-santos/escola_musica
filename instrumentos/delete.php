@@ -8,56 +8,44 @@
 	$sucesso = 0;
 	$tipo= '';
 	$id_nivel = '';
+	$foto = '';
 
-	if ($_POST) {
-		
-		//...Valida se estÃ¡ tudo preenchido
-		if ($_POST['tipo'] != '' && $_POST['nivel'] != '') {
+	if (isset($_POST['deletar'])) {
 
-			if(isset($_FILES['fileUpload'])) { 
+		$sql = "SELECT foto FROM instrumentos WHERE id_instrumento = '".$_POST['deletar']."'";
+		$handle = mysqli_query($conexao, $sql);
 
-               $ext = strtolower(substr($_FILES['fileUpload']['name'],-4)); 
-               $new_name = date("Y.m.d-H.i.s") . $ext; 
-               $dir = 'imagens/';
-
-               move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dir.$new_name); 
-            }
-
-			if (!isset($_POST['editar'])) {
-				$sql = "INSERT INTO instrumentos (tipo, id_nivel, foto)
-						VALUES ('".$_POST['tipo']."', '".$_POST['nivel']."', '".$new_name."')";
-			}else{
-				$sql = "UPDATE instrumentos SET tipo = '".$_POST['tipo']."', id_nivel = '".$_POST['nivel']."', foto = '".$new_name."' WHERE id_instrumento = '".$_POST['editar']."'";
+		if ($handle) {
+			while($linha = mysqli_fetch_array($handle)) {
+				$foto = $linha['foto'];
 			}
-
-			$handle = mysqli_query($conexao, $sql);
-
-			if ($handle) {
-				$sucesso = 1;
-				$mensagem = 'Cadastro realizado com sucesso!';
-			}else{
-				$erro = 1;
-				$mensagem = 'Erro ao gravar no banco';
-			}
-
-		}else{
-			$erro = 1;
-			$mensagem = 'preencha tudo!!!';
 		}
 
+		$sql = "DELETE FROM instrumentos WHERE id_instrumento = '".$_POST['deletar']."'";
+		$handle = mysqli_query($conexao, $sql);
+
+		if ($handle) {
+			@unlink('imagens/'.$foto);
+			$sucesso = 1;
+			$mensagem = 'Cadastro realizado com sucesso!';
+		}else{
+			$erro = 1;
+			$mensagem = 'Erro ao gravar no banco';
+		}
 	}
+	
 ?>
 
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Cadastro de instrumentos</title>
+	<title>RemoÃ§Ã£o de instrumentos</title>
 	<link href="../scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-	<h1>Cadastro de instrumentos</h1>
+	<h1>RemoÃ§Ã£o de instrumentos</h1>
 
 	<a href="./index_inst.php" class="btn btn-primary">
 		<i class="glyphicon glyphicon-backward"></i>
@@ -81,38 +69,39 @@
 
 		if (isset($_REQUEST['id']) && $_REQUEST['id'] != '') {
 			$sql = "SELECT * FROM instrumentos WHERE id_instrumento = '".$_REQUEST['id']."'";
-			$handle = mysqli_query($conexao, $sql);
+			$handle = mysqli_query($conexao,$sql);
 
 			if ($handle && mysqli_num_rows($handle) > 0) {
 
 				while($linha = mysqli_fetch_array($handle)) {
 					$tipo = $linha['tipo'];
 					$id_nivel = $linha['id_nivel'];
-					
+					$foto = $linha['foto'];					
 				}
 
 			}
 		?>
-		<input type="hidden" name="editar" value="<?php echo $_REQUEST['id'] ?>">
+		<input type="hidden" name="deletar" value="<?php echo $_REQUEST['id'] ?>">
 		<?php
 		}
 		?>
 		<div class="form-group">
-			<input type="tipo" name="tipo" placeholder="Tipo" class="form-control" value="<?php if($tipo) echo $tipo; ?>">
+			<input type="tipo" name="tipo" placeholder="Tipo" class="form-control" value="<?php if($tipo) echo $tipo; ?>" disabled="disabled">
 		</div>
 		<div class="form-group">
 		<?php
 		$sql = "SELECT * FROM niveis";
 		$handle = mysqli_query($conexao, $sql);
 
-		if ($handle && mysql_num_rows($handle) > 0) {
+		if ($handle && mysqli_num_rows($handle) > 0) {
 		?>
-		<select name="nivel" id="nivel">
+		<select name="nivel" id="nivel" disabled="disabled">
 			<option value="">Selecione o nÃ­vel</option>
 			<?php
 			while($linha = mysqli_fetch_array($handle)) {
 			?>
-			<option value="<?php echo $linha['id_nivel'];?>"><?php echo $linha['nivel']; ?></option>
+			<option value="<?php echo $linha['id_nivel'];?>" <?php if ($id_nivel == $linha['id_nivel']
+	) echo 'selected="selected"'; ?>> <?php echo $linha['nivel']; ?></option>
 			<?php
 			}
 			?>
@@ -121,12 +110,14 @@
 		}
 		?>
 		</div>
-                
-        <input type="file" name="fileUpload" class="form-control"><br>
+
+	    <div class="form-group">
+			<img width="100" height="100" src="./imagens/<?php echo $foto;?>" />
+		</div>
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
 
-		<input type="submit" name="enviar" value="Enviar dados" class="btn btn-success">
+		<input type="submit" name="enviar" value="Deletar" class="btn btn-danger">
                 
 	</form>
          
@@ -136,3 +127,4 @@
 
 </body>
 </html>
+
