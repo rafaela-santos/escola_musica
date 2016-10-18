@@ -45,7 +45,7 @@
 </head>
 <body>
 
-	<h1>Remoçãode instrumentos</h1>
+	<h1>Remoção de instrumentos</h1>
 
 	<a href="./index_inst.php" class="btn btn-primary">
 		<i class="glyphicon glyphicon-backward"></i>
@@ -100,8 +100,7 @@
 			<?php
 			while($linha = mysqli_fetch_array($handle)) {
 			?>
-			<option value="<?php echo $linha['id_nivel'];?>" <?php if ($id_nivel == $linha['id_nivel']
-	) echo 'selected="selected"'; ?>> <?php echo $linha['nivel']; ?></option>
+			<option value="<?php echo $linha['id_nivel'];?>" <?php if ($id_nivel == $linha['id_nivel']) echo 'selected="selected"'; ?>> <?php echo $linha['nivel']; ?></option>
 			<?php
 			}
 			?>

@@ -11,7 +11,7 @@
 	$email = '';
 	$telefone = '';
 
-	//...Pega o nÃ­vel do aluno
+	//Pega o nível do aluno
 	$sql = "SELECT * FROM alunos WHERE id_aluno = '".$_SESSION['id']."' ";
 	$handle = mysqli_query($conexao, $sql);
 
@@ -21,10 +21,28 @@
 		}
 	}
 ?>
+<?php
 
+		if (isset($_REQUEST['id']) && $_REQUEST['id'] != '') {
+			$sql = "SELECT * FROM reservas WHERE id_reserva = '".$_REQUEST['id']."'";
+			$handle = mysqli_query($conexao, $sql);
+
+			if ($handle && mysqli_num_rows($handle) > 0) {
+
+				while($linha = mysqli_fetch_array($handle)) {
+					$id_aluno = $linha['id_aluno'];
+					$id_sala = $linha['id_sala'];
+                                        $id_instrumento = $linha['id_instrumento'];
+                                        $data_inicio = $linha['data_inicio'];
+                                        $data_fim = $linha['data_fim'];
+				}
+
+			}
+                }
+		?>
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta charset="UTF-8">
 	<title>Login</title>
 	<link href="../scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -95,8 +113,9 @@
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
 
-		<input type="submit" name="enviar" value="Enviar dados" class="btn btn-success">
+		<input type="submit" name="enviar" value="Enviar dados" class="btn btn-success" href =http://localhost/escola_musica/index.php">
 	</form>
+       
 
 
 <script src="scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>

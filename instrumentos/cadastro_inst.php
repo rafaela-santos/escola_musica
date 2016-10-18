@@ -11,7 +11,7 @@
 
 	if ($_POST) {
 		
-		//...Valida se estÃ¡ tudo preenchido
+		//Valida se esta tudo preenchido
 		if ($_POST['tipo'] != '' && $_POST['nivel'] != '') {
 
 			if(isset($_FILES['fileUpload'])) { 
@@ -24,10 +24,10 @@
             }
 
 			if (!isset($_POST['editar'])) {
-				$sql = "INSERT INTO instrumentos (tipo, id_nivel, foto)
+				$sql = "INSERT INTO instrumentos (tipo, id_nivel2, foto)
 						VALUES ('".$_POST['tipo']."', '".$_POST['nivel']."', '".$new_name."')";
 			}else{
-				$sql = "UPDATE instrumentos SET tipo = '".$_POST['tipo']."', id_nivel = '".$_POST['nivel']."', foto = '".$new_name."' WHERE id_instrumento = '".$_POST['editar']."'";
+				$sql = "UPDATE instrumentos SET tipo = '".$_POST['tipo']."', id_nivel2 = '".$_POST['nivel']."', foto = '".$new_name."' WHERE id_instrumento = '".$_POST['editar']."'";
 			}
 
 			$handle = mysqli_query($conexao, $sql);
@@ -51,7 +51,7 @@
 
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta charset="UTF-8">
 	<title>Cadastro de instrumentos</title>
 	<link href="../scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -87,7 +87,7 @@
 
 				while($linha = mysqli_fetch_array($handle)) {
 					$tipo = $linha['tipo'];
-					$id_nivel = $linha['id_nivel'];
+					$id_nivel = $linha['id_nivel2'];
 					
 				}
 
@@ -112,7 +112,7 @@
 			<?php
 			while($linha = mysqli_fetch_array($handle)) {
 			?>
-			<option value="<?php echo $linha['id_nivel'];?>"><?php echo $linha['nivel']; ?></option>
+			<option value="<?php echo $linha['id_nivel'];?>" <?php if($id_nivel == $linha['id_nivel']) echo 'selected="selected"'; else echo ''; ?> ><?php echo $linha['nivel']; ?></option>
 			<?php
 			}
 			?>

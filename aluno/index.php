@@ -7,7 +7,7 @@
 
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta charset="UTF-8">
 	<title>Listagem de alunos</title>
 	<link href="../scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -34,7 +34,7 @@
 			<th>Telefone</th>
                         <th>Nivel</th>
                         <th>Login</th>
-			<th width="100px;">AÃ§Ãµes</th>
+			<th width="100px;">Ações</th>
 		</tr>
 		<?php
 			while($linha = mysqli_fetch_array($handle)) {

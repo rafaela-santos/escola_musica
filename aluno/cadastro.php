@@ -17,13 +17,13 @@
 
 	if ($_POST) {
 		
-		//...Valida se estÃ¡ tudo preenchido
+		//...Valida se esta tudo preenchido
 		if ($_POST['nome'] != '' && $_POST['idade'] != '' && $_POST['email'] != '' && $_POST['nivel'] != ''  && $_POST['login'] != '' && $_POST['tipo'] != '') {
 
 			if (!isset($_POST['editar'])) {
-				if ($_POST['senha'] != '') {
+				if ($_POST['senha'] != ''){
 					$sql = "INSERT INTO alunos (nome, idade, email, telefone, id_nivel, login, senha, tipo)
-							VALUES ('".$_POST['nome']."', '".$_POST['idade']."', '".$_POST['email']."', '".$_POST['telefone']."', '".$_POST['nivel']."', '".$_POST['login']."', '".$_POST['senha']."', '".$_POST['tipo']."')";
+							VALUES ('".$_POST['nome']."', '".$_POST['idade']."', '".$_POST['email']."', '".$_POST['telefone']."', '".$_POST['nivel']."', '".$_POST['login']."', '".md5($_POST['senha'])."', '".$_POST['tipo']."')";
 				}else{
 					$erro = 1;
 					$mensagem = 'preencha tudo!!!';
@@ -54,7 +54,7 @@
 
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta charset="UTF-8">
 	<title>Cadastro de alunos</title>
 	<link href="../scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -80,8 +80,7 @@
 		}
 	?>
 	<form method="post" action="<?php echo $_SERVER['PHP_SELF']?>" id="form" class="form" >
-		<?php
-
+		<?php 
 		if (isset($_REQUEST['id']) && $_REQUEST['id'] != '') {
 			$sql = "SELECT * FROM alunos WHERE id_aluno = '".$_REQUEST['id']."'";
 			$handle = mysqli_query($conexao, $sql);
