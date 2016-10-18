@@ -10,6 +10,7 @@
 	$idade = '';
 	$email = '';
 	$telefone = '';
+        
 
 	//Pega o nível do aluno
 	$sql = "SELECT * FROM alunos WHERE id_aluno = '".$_SESSION['id']."' ";
@@ -112,10 +113,22 @@
 
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
-
-		<input type="submit" name="enviar" value="Enviar dados" class="btn btn-success" href =http://localhost/escola_musica/index.php">
+                <?php
+                    if($_POST[id_aluno]=0){
+                ?>
+		<input type="submit" name="enviar" value="Enviar dados" class="btn btn-success">
 	</form>
-       
+        <?php
+                  header("Location: sair.php");
+                    }
+        ?>
+        <!--enviar email-->
+       <?php
+       $email = "coloqueseuemail@seuservidor";
+       $mensagem = "select * from alunos where nome= ".$nome."";
+
+        mail ("$email","$mensagem");
+       ?>
 
 
 <script src="scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>

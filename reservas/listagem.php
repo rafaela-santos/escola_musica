@@ -13,7 +13,7 @@
 </head>
 <body>
 
-	<h1>Listagem de alunos</h1>
+	<h1>Listagem de reservas</h1>
 
 	<?php
 		$sql = "SELECT * FROM reservas";
