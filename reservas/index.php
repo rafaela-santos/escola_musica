@@ -19,37 +19,20 @@
 	if ($handle && mysqli_num_rows($handle) > 0) {
 		while($linha = mysqli_fetch_array($handle)) {
 			$nivel = $linha['id_nivel'];
-		}
-	}
-?>
-<?php
-
-		if (isset($_REQUEST['id']) && $_REQUEST['id'] != '') {
-			$sql = "SELECT * FROM reservas WHERE id_reserva = '".$_REQUEST['id']."'";
-			$handle = mysqli_query($conexao, $sql);
-
-			if ($handle && mysqli_num_rows($handle) > 0) {
-
-				while($linha = mysqli_fetch_array($handle)) {
-					$id_aluno = $linha['id_aluno'];
-					$id_sala = $linha['id_sala'];
-                                        $id_instrumento = $linha['id_instrumento'];
-                                        $data_inicio = $linha['data_inicio'];
-                                        $data_fim = $linha['data_fim'];
-				}
-
-			}
                 }
-		?>
+        }
+        
+?>
+
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8">
-	<title>Login</title>
+	<title>Reserva</title>
 	<link href="../scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-	<h1>Login</h1>
+	<h1>Reserva</h1>
 
 	<?php
 		if ($erro == 1) {
@@ -104,31 +87,22 @@
 		?>
 		</div>
 
-		<div class="form-group">
-			Data inicio
-			<input type="text" name="data_inicio" id="data_inicio"> Hora
-			<input type="text" name="hora_inicio" id="hora_inicio">
-
-		</div>
+		<table class="table table-striped">
+                    <tr>
+			<td><?php echo $linha['id_sala'];?></td>
+			<td><?php echo $linha['data_inicio'];?></td>
+			<td><?php echo $linha['data_fim'];?></td>
+		</tr>
+                </table>
 
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
-                <?php
-                    if($_POST[id_aluno]=0){
-                ?>
-		<input type="submit" name="enviar" value="Enviar dados" class="btn btn-success">
+                
+		<input type="submit" name="enviar" value="Enviar dados" class="btn btn-success"  >
 	</form>
-        <?php
-                  header("Location: sair.php");
-                    }
-        ?>
-        <!--enviar email-->
-       <?php
-       $email = "coloqueseuemail@seuservidor";
-       $mensagem = "select * from alunos where nome= ".$nome."";
 
-        mail ("$email","$mensagem");
-       ?>
+       
+        
 
 
 <script src="scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>

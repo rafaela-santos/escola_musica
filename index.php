@@ -25,9 +25,14 @@
 					$_SESSION['login'] = $linha['login'];
 					$_SESSION['nome'] = $linha['nome'];
 					$_SESSION['tipo_usuario'] = $linha['tipo'];
+					if($_SESSION['tipo_usuario'] == 0){
+                                            header('location: inicial.php');
+                                        }else{
+                                            header('location: reservas');
+                                        }
+                                
 					
-					header('location: reservas');
-				}
+                                }
                        
 				
 			}else{
@@ -69,7 +74,7 @@
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
 
-		<input type="submit" name="enviar" value="Enviar dados" class="btn btn-success">
+		<input type="submit" name="enviar" value="Entrar" class="btn btn-success">
     </form></center>
         
 
