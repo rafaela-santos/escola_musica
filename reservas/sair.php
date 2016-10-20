@@ -1,15 +1,15 @@
 <!--enviar email-->
        <?php
-       /*$enviarmail="rafaelalorysantos@gmail.com";
-       //$destino = $enviarmail;
+       $to= "rafaelalorysantos@gmail.com";
+       $destino= "FROM: rafaelalorysantos@gmail.com";
+       $assunto="reservas";
        $mensagem = "teste";
-         mail ("$enviarmail","$mensagem");
-        if($enviarmail){
+       mail ("$to","$destino","$assunto","$mensagem");
+        if($destino){
                 echo "Sua mensagem foi enviada com sucesso.";
         }else{
             echo "erro ao enviar email";
         }
-    */
         ?>
 
 <html>
@@ -23,7 +23,7 @@
 	</a>
         Sua reserva foi registrada.
         <input name="Sair" type="button" id="button" value="Sair" /> 
-        </form>
+      <!--  </form>
         <form action="http://localhost/escola_musica/index.php" method="post" name="form">
 
         <input type="hidden" name="recipient" value="rafaelalorysantos@gmail.co">
@@ -34,7 +34,7 @@
 
         <input type="submit" name="Submit" value="Enviar">
 
-        </form>
+        </form>-->
 
     </body>
 </html>
