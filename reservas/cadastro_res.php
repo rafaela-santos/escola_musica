@@ -7,6 +7,7 @@
 	$erro = 0;
 	$sucesso = 0;
         $id_sala='';
+        $sala='';
         $data_inicio='';
         $data_fim='';
         
@@ -14,13 +15,18 @@
 	if ($_POST) {
 		
 		//...Valida se esta tudo preenchido
-		if ( $_POST['id_sala'] != '' && $_POST['data_inicio'] != ''  && $_POST['data_fim'] != '') {
+		if ( $_POST['id_sala'] != '' && $_POST['sala'] != '' && $_POST['data_inicio'] != ''  && $_POST['data_fim'] != '') {
 
 			if (!isset($_POST['editar'])) {
-					$sql = "INSERT INTO salas ( id_sala, data_inicio, data_fim)
-							VALUES ( '".$_POST['id_sala']."', '".$_POST['data_inicio']."', '".$_POST['data_fim']."')";
+					$sql = "INSERT INTO salas ( id_sala, sala, data_inicio, data_fim)
+							VALUES ( '".$_POST['id_sala']."','".$_POST['sala']."', '".$_POST['data_inicio']."', '".$_POST['data_fim']."')";
+                                        
+                        }else{
+					$erro = 1;
+					$mensagem = 'preencha tudo!!!';
+			}
 			}else{
-				$sql = "UPDATE salas SET  id_sala='".$_POST['id_sala']."', data_inicio='".$_POST['data_inicio']."', data_fim'".$_POST['data_fim']."'WHERE id_reserva = '".$_POST['editar']."'";
+				$sql = "UPDATE salas SET  id_sala='".$_POST['id_sala']."', sala='".$_POST['sala']."', data_inicio='".$_POST['data_inicio']."', data_fim'".$_POST['data_fim']."'WHERE id_sala= '".$_POST['editar']."'";
 			}
 
 			if($erro != 1) {
@@ -32,15 +38,15 @@
 				}else{
 					$erro = 1;
 					$mensagem = 'Erro ao gravar no banco';
+                          
 				}
 			
 		}else{
 			$erro = 1;
 			$mensagem = 'preencha tudo!!!';
 		}
-
                 }
-        }
+        
 
 ?>
 
@@ -81,6 +87,7 @@
 
 				while($linha = mysqli_fetch_array($handle)) {
                                         $id_sala=$linha=['id_sala'];
+                                        $sala=$linha=['sala'];
                                         $data_inicio=$linha['data_inicio'];
                                         $data_fim=$linha['data_fim'];
 				}
@@ -103,7 +110,7 @@
 			<?php
 			while($linha = mysqli_fetch_array($handle)) {
 			?>
-                        <option value="<?php echo $linha['id_sala'];?>" <?php if($id_sala == $linha['nome']) echo 'selected="selected"'; else echo ''; ?> ><?php echo $linha['nome']; ?></option><br>
+                        <option value="<?php echo $linha['sala'];?>" <?php if($sala == $linha['sala']) echo 'selected="selected"'; else echo ''; ?> ><?php echo $linha['sala']; ?></option><br><br>
 			<?php
 			}
 			?>
@@ -112,10 +119,13 @@
 		}
 		?>
                 <div class="form-group">
-                    <input type="Datetime" name="data_inicio" placeholder="Horario Inicial" class="form-control" value="<?php if($data_inicio) echo $data_inicio; ?>">
+                <input type="Text" name="id_sala" placeholder="ID" class="form-control" value="<?php if($id_sala) echo $id_sala; ?>">
 		</div>
                 <div class="form-group">
-                    <input type="Datetime" name="data_fim" placeholder="Horario Final" class="form-control" value="<?php if($data_fim) echo $data_fim; ?>">
+                    <input type="time" name="data_inicio" placeholder="Horario Inicial" class="form-control" value="<?php if($data_inicio) echo $data_inicio; ?>">
+		</div>
+                <div class="form-group">
+                    <input type="time" name="data_fim" placeholder="Horario Final" class="form-control" value="<?php if($data_fim) echo $data_fim; ?>">
 		</div>
                 </div>
 		

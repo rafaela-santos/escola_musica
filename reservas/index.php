@@ -11,7 +11,7 @@
 	$email = '';
 	$telefone = '';
         
-        $id_aluno='';
+
         $id_sala='';
         $id_instrumento='';
         $data_inicio='';
@@ -20,15 +20,18 @@
                 if ($_POST) {
 		
 		//...Valida se esta tudo preenchido
-		if ( $_POST['id_aluno'] != '' && $_POST['id_sala'] != '' && $_POST['id_instrumento'] != ''  && $_POST['data_inicio'] != '' && $_POST['data_fim'] != '') {
+		if (  $_POST['id_sala'] != '' && $_POST['id_instrumento'] != ''  && $_POST['data_inicio'] != '' && $_POST['data_fim'] != '') {
 
 			if (!isset($_POST['editar'])) {
-					$sql = "INSERT INTO reservas ( id_aluno, id_sala, id_instrumento, data_inicio, data_fim)
-							VALUES ( '".$_POST['id_aluno']."', '".$_POST['id_sala']."', '".$_POST['id_instrumento']."', '".$_POST['data_inicio']."', '".$_POST['data_fim']."')";
+					$sql = "INSERT INTO reservas ( id_sala, id_instrumento, data_inicio, data_fim)
+							VALUES (  '".$_POST['id_sala']."', '".$_POST['id_instrumento']."', '".$_POST['data_inicio']."', '".$_POST['data_fim']."')";
 				}else{
 					$erro = 1;
 					$mensagem = 'preencha tudo!';
-				}
+                                }
+                                }else{
+				$sql = "UPDATE reservas SET  id_sala = '".$_POST['id_sala']."', id_instrumento = '".$_POST['id_instrumento']."', data_inicio = '".$_POST['data_inicio']."', data_fim = '".$_POST['data_fim']."'  WHERE id_reserva = '".$_POST['editar']."'";
+			}
 
 			if($erro != 1) {
 				$handle = mysqli_query($conexao, $sql);
@@ -43,10 +46,11 @@
 			
 		}else{
 			$erro = 1;
-			$mensagem = 'preencha tudo!!!';
+			$mensagem = 'preencha tudo!';
 		}
+                echo $sql;
                 }
-                }
+                
 	
 	//Pega o nível do aluno
 	$sql = "SELECT * FROM alunos WHERE id_aluno = '".$_SESSION['id']."' ";
@@ -89,7 +93,7 @@
 				while($linha = mysqli_fetch_array($handle)) {
                                         $id_aluno=$linha=['id_aluno'];
                                         $id_sala=$linha=['id_sala'];
-                                        $id_instrumento=$linha=['id_instrumento'];
+                                        $id_instrumento=$linha=['id_instrumento']; 
                                         $data_inicio=$linha['data_inicio'];
                                         $data_fim=$linha['data_fim'];
 				}
@@ -125,12 +129,13 @@
 
 		if ($handle && mysqli_num_rows($handle) > 0) {
 		?>
-		<select name="sala" id="sala">
+		<select name="id_sala" id="id_sala">
 			<option value="">Selecione a sala</option>
 			<?php
 			while($linha = mysqli_fetch_array($handle)) {
 			?>
-			<option value="<?php echo $linha['id_sala'];?>"><?php echo $linha['nome']; ?></option>
+			<option value="<?php echo $linha['id_sala'];?>"><?php echo $linha['id_sala']; ?></option>
+                        
 			<?php
 			}
 			?>
@@ -147,11 +152,23 @@
                         ?>
 		<table class="table table-striped">
                     <tr>
+			<th>Id da sala</th>
+			<th>Nome</th>
+                        <th>Horario inicial</th>
+                        <th>Horario final</th>
+		    </tr>
+                    <?php
+			while($linha = mysqli_fetch_array($handle)) {
+		    ?>
+                    <tr>
 			<td><?php echo $linha['id_sala'];?></td>
+                        <td><?php echo $linha['sala'];?></td>
 			<td><?php echo $linha['data_inicio'];?></td>
 			<td><?php echo $linha['data_fim'];?></td>
+  
 		</tr>
                 <?php
+                        }
                         }
                  ?>
                 </table>
@@ -160,7 +177,64 @@
                             echo "<br>Não existe registro de horarios";
                         }
                         ?>
+               <div class="form-group">
+		<?php
+		$sql = "SELECT * FROM salas";
+		$handle = mysqli_query($conexao, $sql);
 
+		if ($handle && mysqli_num_rows($handle) > 0) {
+		?>
+                   <select name="sala" id="sala">
+			<option value="">Selecione a sala</option>
+			<?php
+			while($linha = mysqli_fetch_array($handle)) {
+			?>
+			<option value="<?php echo $linha['sala'];?>"><?php echo $linha['sala']; ?></option>
+                        
+			<?php
+			}
+                }
+			?>
+                        <?php
+		$sql = "SELECT * FROM salas";
+		$handle = mysqli_query($conexao, $sql);
+
+		if ($handle && mysqli_num_rows($handle) > 0) {
+		?>
+		</select>
+                   <select name="data_inicio" id="data_inicio">
+			<option value="">Selecione o horario inicial</option>
+			<?php
+			while($linha = mysqli_fetch_array($handle)) {
+			?>
+			<option value="<?php echo $linha['data_inicio'];?>"><?php echo $linha['data_inicio']; ?></option>
+                        
+			<?php
+			}
+                }
+			?>
+                        <?php
+		$sql = "SELECT * FROM salas";
+		$handle = mysqli_query($conexao, $sql);
+
+		if ($handle && mysqli_num_rows($handle) > 0) {
+		?>
+		</select>
+                   <select name="data_fim" id="data_fim">
+			<option value="">Selecione o horario final</option>
+			<?php
+			while($linha = mysqli_fetch_array($handle)) {
+			?>
+			<option value="<?php echo $linha['data_fim'];?>"><?php echo $linha['data_fim']; ?></option>
+                        
+			<?php
+			}
+			?>
+		</select>
+		<?php
+		}
+		?>
+		</div>
 
 		<div class="preloader" style="display: none;">Enviando dados...</div>
                 
